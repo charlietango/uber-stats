@@ -1,3 +1,5 @@
+var OAuth = require('@zalando/oauth2-client-js');
+
 module.exports = {
   login(email, pass, cb) {
     cb = arguments[arguments.length - 1]
@@ -6,7 +8,7 @@ module.exports = {
       this.onChange(true)
       return
     }
-    pretendRequest(email, pass, (res) => {
+    requestToken((res) => {
       if (res.authenticated) {
         localStorage.token = res.token
         if (cb) cb(true)
@@ -35,15 +37,30 @@ module.exports = {
   onChange() {}
 }
 
-function pretendRequest(email, pass, cb) {
-  setTimeout(() => {
-    if (email === 'joe@example.com' && pass === 'password1') {
-      cb({
-        authenticated: true,
-        token: Math.random().toString(36).substring(7)
-      })
-    } else {
-      cb({ authenticated: false })
-    }
-  }, 0)
+function requestToken(cb) {
+  var uber = new OAuth.Provider({
+      id: 'uber',
+      authorization_url: 'https://login.uber.com/oauth/v2/authorize'
+  });
+
+  // Create a new request
+  var request = new OAuth.Request({
+      client_id: '-',  // required
+      redirect_uri: 'http://localhost:8080',
+      scope: 'history'
+  });
+
+  // Give it to the provider
+  var uri = uber.requestToken(request);
+
+  // Later we need to check if the response was expected
+  // so save the request
+  uber.remember(request);
+  console.log("uri", uri);
+  // Do the redirect
+  window.location.href = uri;
 }
+
+// TODO figure out how to get the access_token not via URL
+// then set the redirect_uri to /auth-response, there save the token
+// in the storage and redirect to dashboard when is done

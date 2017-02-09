@@ -18,7 +18,8 @@ export default class App extends React.Component {
 
   componentWillMount() {
     auth.onChange = this.updateAuth
-    auth.login()
+    var access_token = this.props.location.hash.split("=")[1];
+    console.log("access_token", access_token);
   }
 
   render() {
