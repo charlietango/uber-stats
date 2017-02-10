@@ -25,6 +25,7 @@ render(<Router history={browserHistory}>
       </Router>, app);
 
 function requireAuth(nextState, replace) {
+  console.log("authenticated: ", auth.loggedIn());
   if (!auth.loggedIn()) {
     replace({
       pathname: '/login',

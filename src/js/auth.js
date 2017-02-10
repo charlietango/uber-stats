@@ -34,6 +34,10 @@ module.exports = {
     return !!localStorage.token
   },
 
+  setToken(token) {
+    localStorage.token = token
+  },
+
   onChange() {}
 }
 
@@ -47,7 +51,7 @@ function requestToken(cb) {
   var request = new OAuth.Request({
       client_id: '-',  // required
       redirect_uri: 'http://localhost:8080',
-      scope: 'history'
+      scope: 'history profile'
   });
 
   // Give it to the provider

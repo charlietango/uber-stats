@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
+import axios from "axios";
 
 import auth from "../auth";
 
@@ -11,15 +12,17 @@ export default class App extends React.Component {
   }
 
   updateAuth(loggedIn) {
-    this.setState({
-      loggedIn
-    })
+    this.setState({ loggedIn });
   }
 
   componentWillMount() {
     auth.onChange = this.updateAuth
-    var access_token = this.props.location.hash.split("=")[1];
-    console.log("access_token", access_token);
+    var access_token = this.props.location.hash && this.props.location.hash.split("=")[1].split("&")[0];
+    console.log(access_token);
+    if(access_token) {
+      this.updateAuth(true);
+      auth.setToken(access_token);
+    }
   }
 
   render() {
