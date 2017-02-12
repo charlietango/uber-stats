@@ -1,20 +1,23 @@
 import React from "react";
 import axios from "axios";
 
+import UserDetails from "../components/UserDetails";
+import HistoryFacts from "../components/HistoryFacts";
+
 import auth from "../auth";
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {name: "", trips: [], fetched: false};
+    this.state = {name: "", profilePicture: "", trips: []};
   }
 
   componentWillMount() {
     if(auth.loggedIn()) {
-      fetchData((name) => {
-        this.setState({name: name});
+      fetchData((user) => {
+        this.setState( {name: user.name, profilePicture: user.profilePicture} );
       }, (trips) => {
-        this.setState({trips: trips});
+        this.setState( {trips: trips} );
       });
     }
   }
@@ -22,14 +25,22 @@ export default class App extends React.Component {
   render() {
     const token = auth.getToken();
     var trips = this.state.trips.map((item) => {return <li key={item.start_time}>{item.city}</li>});
-    return (
-      <div>
-        <h1>Dashboard</h1>
-        <p>Hi {this.state.name}</p>
-        <p>You had {this.state.trips.length} trips with Uber.</p>
-        <ul>{trips}</ul>
-      </div>
-    )
+    if (this.state.name == "" || this.state.trips.length == 0 || this.state.profilePicture == "") {
+      return(
+        <div>
+          <h1>Dashboard</h1>
+          <p>Loading</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1>Dashboard</h1>
+          <UserDetails name={this.state.name} profilePicture={this.state.profilePicture}/>
+          <HistoryFacts trips={this.state.trips}/>
+        </div>
+      );
+    }
   }
 }
 
@@ -49,16 +60,19 @@ function fetchData(cbName, cbTrips) {
   axios.defaults.headers.common['Authorization'] = "Bearer " + auth.getToken();
 
   axios.get("/v1.2/me").then((result) => {
-    cbName(result.data.first_name);
+    cbName({
+      name: result.data.first_name,
+      profilePicture: result.data.picture
+    });
   });
 
   fetchAllHistory((data) => {
     var trips = [];
     data.forEach((item) => {
       var trip = {};
-      trip.status = item.status;
       trip.request_time = item.request_time;
-      trip.city = item.start_city.display_name;
+      trip.city = item.start_city;
+      trip.distance = item.distance;
       trip.wait_time = item.start_time - item.request_time;
       trip.duration = item.end_time - item.start_time;
       trip.start_time = item.start_time;

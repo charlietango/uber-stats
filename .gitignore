@@ -1,3 +1,4 @@
 node_modules
 src/js/client.min.js
+src/js/config.js
 .DS_Store

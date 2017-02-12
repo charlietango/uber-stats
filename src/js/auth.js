@@ -1,4 +1,5 @@
 var OAuth = require('@zalando/oauth2-client-js');
+import config from "./config";
 
 module.exports = {
   login(email, pass, cb) {
@@ -49,7 +50,7 @@ function requestToken(cb) {
 
   // Create a new request
   var request = new OAuth.Request({
-      client_id: '-',  // required
+      client_id: config.client_id,  // required
       redirect_uri: 'http://localhost:8080',
       scope: 'history profile'
   });
@@ -68,3 +69,11 @@ function requestToken(cb) {
 // TODO figure out how to get the access_token not via URL
 // then set the redirect_uri to /auth-response, there save the token
 // in the storage and redirect to dashboard when is done
+
+// check PropTypes
+
+// decide which type of data visualization to do, and do it
+
+// take care of the visual aspect
+
+// make sure it works for everybody, in production
