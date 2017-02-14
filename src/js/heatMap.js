@@ -1,15 +1,14 @@
 var d3 = require('d3');
 
 var heatMap = function(data) {
-
-  var margin = { top: 50, right: 0, bottom: 100, left: 30 },
-      width = 960 - margin.left - margin.right,
+  // console.log(data);
+  var margin = { top: 50, right: 30, bottom: 100, left: 30 },
+      width = 760 - margin.left - margin.right,
       height = 430 - margin.top - margin.bottom,
       gridSize = Math.floor(width / 24),
       legendElementWidth = gridSize*2,
-      buckets = 9,
       colors = [
-        "#ffffd9",
+        "#ffffda",
         "#edf8b1",
         "#c7e9b4",
         "#7fcdbb",
@@ -17,12 +16,12 @@ var heatMap = function(data) {
         "#1d91c0",
         "#225ea8",
         "#253494",
-        "#081d58"
+        "#081d58",
       ],
       days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-      times = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p", "12p"];
+      times = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a",
+              "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p", "12p"];
 
-  console.log(d3.select("#chart"));
 
   var svg = d3.select("#chart").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -38,7 +37,7 @@ var heatMap = function(data) {
         .attr("y", function (d, i) { return i * gridSize; })
         .style("text-anchor", "end")
         .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
-        .attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
+        .attr("class", function (d, i) { return ((i >= 1 && i <= 5) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
 
   var timeLabels = svg.selectAll(".timeLabel")
       .data(times)
@@ -51,10 +50,8 @@ var heatMap = function(data) {
         .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
 
   var colorScale = d3.scaleQuantile()
-      .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
+      .domain([0, d3.max(data, function (d) { return d.value; })])
       .range(colors);
-
-  console.log(colors);
 
   var cards = svg.selectAll(".hour")
       .data(data, function(d) {return d.day+':'+d.hour;});
@@ -69,12 +66,16 @@ var heatMap = function(data) {
       .attr("class", "hour bordered")
       .attr("width", gridSize)
       .attr("height", gridSize)
-      .style("fill", colors[0]);
+      .style("fill", colors[0])
+      .transition().duration(1000)
+        .style("fill", function(d) {
+          return colorScale(d.value);
+         });
 
-  cards.transition().duration(1000)
-      .style("fill", function(d) { return colorScale(d.value); });
-
-  cards.select("title").text(function(d) { return d.value; });
+  cards.select("title").text(function(d) {
+    console.log(d.value);
+    return d.value;
+  });
 
   cards.exit().remove();
 
