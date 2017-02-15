@@ -1,67 +1,69 @@
-var OAuth = require('@zalando/oauth2-client-js');
-import config from "./config";
+import config from './config';
+
+const OAuth = require('@zalando/oauth2-client-js');
+
 
 module.exports = {
   login(email, pass, cb) {
-    cb = arguments[arguments.length - 1]
+    cb = arguments[arguments.length - 1];
     if (localStorage.token) {
-      if (cb) cb(true)
-      this.onChange(true)
-      return
+      if (cb) cb(true);
+      this.onChange(true);
+      return;
     }
     requestToken((res) => {
       if (res.authenticated) {
-        localStorage.token = res.token
-        if (cb) cb(true)
-        this.onChange(true)
+        localStorage.token = res.token;
+        if (cb) cb(true);
+        this.onChange(true);
       } else {
-        if (cb) cb(false)
-        this.onChange(false)
+        if (cb) cb(false);
+        this.onChange(false);
       }
-    })
+    });
   },
 
   getToken() {
-    return localStorage.token
+    return localStorage.token;
   },
 
   logout(cb) {
-    delete localStorage.token
-    if (cb) cb()
-    this.onChange(false)
+    delete localStorage.token;
+    if (cb) cb();
+    this.onChange(false);
   },
 
   loggedIn() {
-    return !!localStorage.token
+    return !!localStorage.token;
   },
 
   setToken(token) {
-    localStorage.token = token
+    localStorage.token = token;
   },
 
-  onChange() {}
-}
+  onChange() {},
+};
 
-function requestToken(cb) {
-  var uber = new OAuth.Provider({
-      id: 'uber',
-      authorization_url: 'https://login.uber.com/oauth/v2/authorize'
+function requestToken() {
+  const uber = new OAuth.Provider({
+    id: 'uber',
+    authorization_url: 'https://login.uber.com/oauth/v2/authorize',
   });
 
   // Create a new request
-  var request = new OAuth.Request({
-      client_id: config.client_id,  // required
-      redirect_uri: 'http://localhost:8080',
-      scope: 'history profile'
+  const request = new OAuth.Request({
+    client_id: config.client_id,  // required
+    redirect_uri: 'http://localhost:8080',
+    scope: 'history profile',
   });
 
   // Give it to the provider
-  var uri = uber.requestToken(request);
+  const uri = uber.requestToken(request);
 
   // Later we need to check if the response was expected
   // so save the request
   uber.remember(request);
-  console.log("uri", uri);
+  console.log('uri', uri);
   // Do the redirect
   window.location.href = uri;
 }
