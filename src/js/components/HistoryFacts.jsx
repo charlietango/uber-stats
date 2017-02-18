@@ -1,7 +1,8 @@
 import React from 'react';
 import moment from 'moment';
+import _ from 'lodash';
 
-import TripsSunburst from './TripsSunburst.jsx';
+import TripsHeatMap from './TripsHeatMap.jsx';
 
 export default class HistoryFacts extends React.Component {
   constructor(props) {
@@ -24,18 +25,31 @@ export default class HistoryFacts extends React.Component {
                               / this.trips.length);
     this.averageRideTime = Math.round(moment.duration(this.totalTime * 1000).asMinutes()
                             / this.trips.length);
+    this.uniqueCities = _.uniqBy(this.trips, 'city.display_name');
   }
 
   render() {
+    let firstParagraph = '';
+    const cities = _.join(_.map(this.uniqueCities, 'city.display_name'), ', ');
+    if (this.trips.length < 50) {
+      firstParagraph = (<p>Well done! You&apos;ve traveled {this.trips.length} times with Uber
+        in {this.uniqueCities.length} cities: {cities}</p>);
+    } else if (this.trips.length >= 50 && this.trips.length < 100) {
+      firstParagraph = (<p>That&amp;s impressive! You&apos;ve traveled {this.trips.length} times
+        with Uber in {this.uniqueCities.length} cities: {cities}</p>);
+    } else {
+      firstParagraph = (<p>WOW! You&apos;ve traveled {this.trips.length} times with Uber
+        in {this.uniqueCities.length} cities: {cities}</p>);
+    }
     return (
       <div>
-        <p>{this.trips.length} trips!</p>
+        {firstParagraph}
         <p>You&apos;ve traveled about {this.totalDistance} kilometers, so far,
           with Uber, in a total time of {this.totalTimeAsHours} hours.</p>
         <p>On average, you&apos;ve spent {this.averageWaitingTime} minutes for your ride to arrive
           and the average time you&apos;ve spent per each
           ride is {this.averageRideTime} minutes.</p>
-        <TripsSunburst trips={this.trips} />
+        <TripsHeatMap trips={this.trips} />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 
 import UserDetails from '../components/UserDetails.jsx';
 import HistoryFacts from '../components/HistoryFacts.jsx';
@@ -74,7 +75,7 @@ export default class App extends React.Component {
         <div>
           <h1>Dashboard</h1>
           <UserDetails name={this.state.name} profilePicture={this.state.profilePicture} />
-          <HistoryFacts trips={this.state.trips} />
+          <HistoryFacts trips={this.state.trips} uniqueLocations={this.state.uniqueLocations} />
         </div>
       );
     }
