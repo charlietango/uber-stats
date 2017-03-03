@@ -30,7 +30,7 @@ class Login extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <button type="submit">login to uber</button>
+        <button class="main-button" type="submit">login to uber</button>
         {this.state.error && (
           <p>snap, smth went wrong</p>
         )}

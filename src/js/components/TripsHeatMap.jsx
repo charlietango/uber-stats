@@ -38,8 +38,8 @@ export default class TripsHeatMap extends React.Component {
 
 function heatMap(data) {
   const margin = { top: 50, right: 30, bottom: 100, left: 30 };
-  const width = 760 - margin.left - margin.right;
-  const height = 430 - margin.top - margin.bottom;
+  const width = document.getElementById('chart').offsetWidth;
+  const height = 0.3 * width;
   const gridSize = Math.floor(width / 24);
   const legendElementWidth = gridSize * 2;
   const colors = [

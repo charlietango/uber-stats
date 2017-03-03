@@ -6,6 +6,7 @@ Visualise your Uber trips in interesting ways.
 - [d3](https://d3js.org/)
 - [moment](https://momentjs.com/)
 - [oauth2-client-js](https://github.com/zalando/oauth2-client-js)
+- [react-bootstrap](https://react-bootstrap.github.io)
 - [axios](https://github.com/mzabriskie/axios)
 - [eslint](ESLint - Pluggable JavaScript linter)
 - [babel](https://babeljs.io/)

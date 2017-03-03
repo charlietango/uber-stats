@@ -73,7 +73,7 @@ export default class App extends React.Component {
     } else {
       return (
         <div>
-          <h1>Dashboard</h1>
+          <h2>Dashboard</h2>
           <UserDetails name={this.state.name} profilePicture={this.state.profilePicture} />
           <HistoryFacts trips={this.state.trips} uniqueLocations={this.state.uniqueLocations} />
         </div>
