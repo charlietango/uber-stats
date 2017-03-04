@@ -11,3 +11,10 @@ Visualise your Uber trips in interesting ways.
 - [eslint](ESLint - Pluggable JavaScript linter)
 - [babel](https://babeljs.io/)
 - [webpack](https://webpack.github.io/)
+- [react-fontawesome](https://github.com/danawoodman/react-fontawesome)
+
+## Lessons learned
+- client-side oAuth2 login
+- hashHistory vs browserHistory
+- first time used a JS linter
+- first time played with d3 - which is AWESOME
