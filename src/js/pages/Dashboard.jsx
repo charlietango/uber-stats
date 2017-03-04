@@ -66,8 +66,8 @@ export default class App extends React.Component {
     if (this.state.name === '' || this.state.trips.length === 0 || this.state.profilePicture === '') {
       return (
         <div>
-          <h1>Dashboard</h1>
-          <p>Loading</p>
+          <h2>Dashboard</h2>
+          <p>Loading...</p>
         </div>
       );
     } else {

@@ -44,12 +44,12 @@ function heatMap(data) {
   const legendElementWidth = gridSize * 2;
   const colors = [
     '#ffffff',
-    // '#c7e9b4',
-    '#7fcdbb',
-    // '#41b6c4',
-    '#1d91c0',
+    '#c7e9b4',
+    // '#7fcdbb',
+    '#41b6c4',
+    // '#1d91c0',
     // '#225ea8',
-    '#253494',
+    // '#253494',
     '#081d58',
   ];
   const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import Button from '../components/Button.jsx'
+import Footer from '../components/Footer.jsx'
 
 import auth from '../auth';
 
@@ -62,15 +63,16 @@ export default class App extends React.Component {
           </Navbar.Collapse>
         </Navbar>
         <div class="row">
-          <div class="col-md-offset-4 col-md-4 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10">
+          <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10">
             <div class="text-center">
               { this.props.children ? this.props.children :
-                <div>
-                  <h2 class="intro-text">Welcome!</h2>
+                <div id="welcome-content" >
+                  <h1 class="intro-text">Welcome!</h1>
                   <h4 class="intro-text">Ever wondered if you can see how many Uber trips you've done? Now you can find out!</h4>
-                  <h4 class="intro-text">Find out this magical number and many other awesome facts about your Uber trips.</h4>
+                  <h4 class="intro-text">Find out this magic number and many other awesome facts about your Uber trips.</h4>
                   {button}
                 </div> }
+              <Footer />
             </div>
           </div>
         </div>
