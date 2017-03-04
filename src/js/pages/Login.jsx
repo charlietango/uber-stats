@@ -12,13 +12,11 @@ class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     auth.login((loggedIn) => {
       if (!loggedIn) {
         return this.setState({ error: true });
       }
       const { location } = this.props;
-
       if (location.state && location.state.nextPathname) {
         this.props.router.replace(location.state.nextPathname)
       } else {
@@ -30,9 +28,9 @@ class Login extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <button class="main-button" type="submit">login to uber</button>
+        <button class="main-button" type="submit">Login to uber</button>
         {this.state.error && (
-          <p>snap, smth went wrong</p>
+          <p>Snap! Something went wrong!</p>
         )}
       </form>
     );

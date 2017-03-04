@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
-import Button from '../components/Button.jsx'
-import Footer from '../components/Footer.jsx'
+import Footer from '../components/Footer.jsx';
 
 import auth from '../auth';
 
@@ -32,21 +31,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    const button = <Button to="/dashboard" text="See your stats" />;
+    const button = <Link class="main-button" to="/dashboard">See your stats</Link>;
     return (
       <div>
-        {/* <ul>
-          <li>
-            {this.state.loggedIn ? (
-              <Link to="/logout">Log out</Link>
-            ) : (
-              <Link to="/login">Log in</Link>
-            )}
-          </li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/dashboard">Dashboard</Link></li>
-        </ul> */}
-
         <Navbar collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>

@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router';
+const FontAwesome = require('react-fontawesome');
 
 const Footer = () => {
   return <div id="footer">
     <p>Made with ❤️  ✨ in Bucharest.</p>
-    <p>Source: | Privacy</p>
+    <p>
+      <a href="https://github.com/charlietango592/uber-stats">Source: <FontAwesome name="github" /></a> | <Link to="/privacy">Privacy</Link></p>
   </div>
 }
 

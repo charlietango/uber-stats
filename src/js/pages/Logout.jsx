@@ -10,7 +10,7 @@ export default class Logout extends React.Component {
 
   render() {
     return (
-      <p>You are now logged out.</p>
+      <p>Hope we helped you to discover useful insights! Thank you for using this website. </p>
     );
   }
 }
