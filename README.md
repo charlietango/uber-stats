@@ -18,3 +18,4 @@ Visualise your Uber trips in interesting ways.
 - hashHistory vs browserHistory
 - first time used a JS linter
 - first time played with d3 - which is AWESOME
+- firebase deployment
