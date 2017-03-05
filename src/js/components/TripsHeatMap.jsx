@@ -31,7 +31,12 @@ export default class TripsHeatMap extends React.Component {
 
   render() {
     return (
-      <div id="chart" />
+      <div>
+        <h3>Trips Heatmap</h3>
+        <p>Here is a heatmap which shows you the most frequent times, every week day, when you used Uber.</p>
+        <p>If the square is colored in a darker blue, then you've done more trips at that hour, in that specific day.</p>
+        <div id="chart" />
+      </div>
     );
   }
 }
@@ -44,11 +49,11 @@ function heatMap(data) {
   const legendElementWidth = gridSize * 2;
   const colors = [
     '#ffffff',
-    '#c7e9b4',
-    // '#7fcdbb',
-    '#41b6c4',
-    // '#1d91c0',
-    // '#225ea8',
+    // '#c7e9b4',
+    '#7fcdbb',
+    // '#41b6c4',
+    '#1d91c0',
+    '#225ea8',
     // '#253494',
     '#081d58',
   ];

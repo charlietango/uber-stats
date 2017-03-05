@@ -6,4 +6,5 @@ cd uber-stats
 npm i
 npm i firebase-tools
 firebase login
+webpack
 firebase deploy
