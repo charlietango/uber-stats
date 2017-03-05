@@ -53,7 +53,7 @@ function requestToken() {
   // Create a new request
   const request = new OAuth.Request({
     client_id: config.client_id,  // required
-    redirect_uri: 'http://localhost:8080',
+    redirect_uri: 'https://uber-stats-a60bd.firebaseapp.com',
     scope: 'history profile',
   });
 
